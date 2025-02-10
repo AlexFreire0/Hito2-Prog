@@ -1,18 +1,13 @@
 <?php
 session_start();
-require_once '../config/db_config.php';
+require_once '../Controlador/UsuariosController.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $correo_electronico = $_POST['correo_electronico'];
     $password = $_POST['password'];
 
-    $conexion = new Conexion();
-    $query = "SELECT * FROM Usuarios WHERE correo_electronico = ?";
-    $stmt = $conexion->conexion->prepare($query);
-    $stmt->bind_param("s", $correo_electronico);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-    $usuario = $resultado->fetch_assoc();
+    $controller = new UsuariosController();
+    $usuario = $controller->obtenerUsuarioPorCorreo($correo_electronico);
 
     if ($usuario && password_verify($password, $usuario['password'])) {
         $_SESSION['usuario_id'] = $usuario['id'];
@@ -20,9 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "Correo electrónico o contraseña incorrectos.";
     }
-
-    $stmt->close();
-    $conexion->conexion->close();
 }
 ?>
 
@@ -58,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="register.php">¿No tienes cuenta? Regístrate</a>
+                    <a href="register.php">No tengo cuenta</a>
                 </div>
             </div>
         </div>
