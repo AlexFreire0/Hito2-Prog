@@ -8,7 +8,7 @@ class Evento {
         $this->conexion = new Conexion();
     }
 
-    public function agregarEvento($nombre_evento, $fecha, $lugar) {
+    public function agregarTarea($nombre_evento, $fecha, $lugar) {
         $query = "INSERT INTO eventos (nombre_evento, fecha, lugar) VALUES (?, ?, ?)";
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("sss", $nombre_evento, $fecha, $lugar);
@@ -22,7 +22,7 @@ class Evento {
         $stmt->close();
     }
 
-    public function obtenerEventos() {
+    public function obtenerTareas() {
         $query = "SELECT * FROM eventos";
         $resultado = $this->conexion->conexion->query($query);
         $eventos = [];
@@ -32,10 +32,10 @@ class Evento {
         return $eventos;
     }
 
-    public function obtenerEventoPorId($id_evento) {
+    public function obtenerEventoPorId($id_tarea) {
         $query = "SELECT * FROM eventos WHERE id_evento = ?";
         $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("i", $id_evento);
+        $stmt->bind_param("i", $id_tarea);
         $stmt->execute();
         $resultado = $stmt->get_result();
         return $resultado->fetch_assoc();
@@ -55,10 +55,10 @@ class Evento {
         $stmt->close();
     }
 
-    public function eliminarEvento($id_evento) {
+    public function eliminarEvento($id_tarea) {
         $query = "DELETE FROM eventos WHERE id_evento = ?";
         $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("i", $id_evento);
+        $stmt->bind_param("i", $id_tarea);
 
         if ($stmt->execute()) {
             echo "Evento eliminado con éxito.";
