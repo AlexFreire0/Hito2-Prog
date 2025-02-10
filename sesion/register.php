@@ -1,10 +1,27 @@
 <?php
 session_start();
+require_once '../config/db_config.php';
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nombreuser = $_POST['nombreuser'];
+    $correo_electronico = $_POST['correo_electronico'];
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
+    $conexion = new Conexion();
+    $query = "INSERT INTO Usuarios (nombreuser, correo_electronico, password) VALUES (?, ?, ?)";
+    $stmt = $conexion->conexion->prepare($query);
+    $stmt->bind_param("sss", $nombreuser, $correo_electronico, $password);
 
+    if ($stmt->execute()) {
+        echo "Usuario registrado con éxito.";
+    } else {
+        echo "Error al registrar el usuario: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conexion->conexion->close();
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
