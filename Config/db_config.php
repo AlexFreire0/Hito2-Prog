@@ -3,7 +3,7 @@ class Conexion {
     private $servidor = 'localhost';
     private $usuario = 'root';
     private $password = 'curso';
-    private $base_datos = 'Hito_programacion';
+    private $base_datos = 'Hito_programacion2';
     public $conexion;
 
     public function __construct() {
