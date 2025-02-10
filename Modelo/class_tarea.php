@@ -55,7 +55,7 @@ class Evento {
         $stmt->close();
     }
 
-    public function eliminarEvento($id_evento) {
+    public function eliminarTarea($id_evento) {
         $query = "DELETE FROM eventos WHERE id_evento = ?";
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("i", $id_evento);
