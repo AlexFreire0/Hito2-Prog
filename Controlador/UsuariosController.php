@@ -8,9 +8,8 @@ class UsuariosController {
         $this->modelo = new Usuario();
     }
 
-    public function agregarUsuario($nombre, $apellido, $correo_electronico , $fecha_nacimiento, $plan_base, $duracion_suscripcion, $paquetes_adicionales) {
-        $this->modelo->agregarUsuario($nombre, $apellido, $correo_electronico, $fecha_nacimiento, $plan_base, $duracion_suscripcion, $paquetes_adicionales);
-        
+    public function agregarUsuario($nombreuser, $correo_electronico, $password) {
+        $this->modelo->agregarUsuario($nombreuser, $correo_electronico, $password);
     }
 
     public function listarUsuarios() {
@@ -21,15 +20,20 @@ class UsuariosController {
         return $this->modelo->obtenerUsuarioPorId($id_usuario);
     }
 
-    public function actualizarUsuario($id_usuario, $nombre, $apellido, $correo_electronico, $fecha_nacimiento, $plan_base, $duracion_suscripcion, $paquetes_adicionales_convertidos) {
-        $this->modelo->actualizarUsuario($id_usuario, $nombre, $apellido, $correo_electronico, $fecha_nacimiento, $plan_base, $duracion_suscripcion, $paquetes_adicionales_convertidos);
+    public function actualizarUsuario($id_usuario, $nombreuser, $correo_electronico, $password) {
+        $this->modelo->actualizarUsuario($id_usuario, $nombreuser, $correo_electronico, $password);
     }
 
     public function eliminarUsuario($id_usuario) {
         $this->modelo->eliminarUsuario($id_usuario);
     }
+
     public function obtenerPaquetesUsuario($id_usuario) {
         return $this->modelo->obtenerPacksUsuario($id_usuario);
+    }
+
+    public function obtenerUsuarioPorCorreo($correo_electronico) {
+        return $this->modelo->obtenerUsuarioPorCorreo($correo_electronico);
     }
 }
 ?>

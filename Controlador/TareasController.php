@@ -1,31 +1,31 @@
 <?php
 require_once '../modelo/class_tarea.php';
 
-class EventosController {
+class TareasController {
     private $modelo;
 
     public function __construct() {
-        $this->modelo = new Evento();
+        $this->modelo = new Tarea();
     }
 
-    public function agregarTarea($nombre_evento, $fecha, $lugar) {
-        $this->modelo->agregarTarea($nombre_evento, $fecha, $lugar);
+    public function agregarTarea($nombre_tarea, $fecha, $descripcion) {
+        $this->modelo->agregarTarea($nombre_tarea, $fecha, $descripcion);
     }
 
-    public function listarTareas($idusuario) {
-        return $this->modelo->obtenerTareas($idusuario);
+    public function listarTareas() {
+        return $this->modelo->obtenerTareas();
     }
 
-    public function obtenerTareaPorId($id_evento) {
-        return $this->modelo->obtenerTareaPorId($id_evento);
+    public function obtenerTareaPorId($id_tarea) {
+        return $this->modelo->obtenerTareaPorId($id_tarea);
     }
 
-    public function completarTarea($id_evento, $nombre_evento, $fecha, $lugar) {
-        $this->modelo->completarTarea($id_evento, $nombre_evento, $fecha, $lugar);
+    public function actualizarTarea($id_tarea, $nombre_tarea, $fecha, $descripcion) {
+        $this->modelo->actualizarTarea($id_tarea, $nombre_tarea, $fecha, $descripcion);
     }
 
-    public function eliminarTarea($id_evento) {
-        $this->modelo->eliminarTarea($id_evento);
+    public function eliminarTarea($id_tarea) {
+        $this->modelo->eliminarTarea($id_tarea);
     }
 }
 ?>

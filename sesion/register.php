@@ -1,10 +1,18 @@
 <?php
 session_start();
+require_once '../Controlador/UsuariosController.php';
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nombreuser = $_POST['nombreuser'];
+    $correo_electronico = $_POST['correo_electronico'];
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
+    $controller = new UsuariosController();
+    $controller->agregarUsuario($nombreuser, $correo_electronico, $password);
 
+    echo "Usuario registrado con éxito.";
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +20,6 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registro</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -42,14 +49,12 @@ session_start();
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="login.php">¿Ya tienes cuenta? Inicia sesión</a>
+                    <a href="login.php">Ya tengo cuenta</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Bootstrap JS (Opcional, solo si usas componentes interactivos como modales) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
