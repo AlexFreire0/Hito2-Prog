@@ -2,6 +2,8 @@
 session_start();
 require_once '../Controlador/UsuariosController.php';
 
+$error_message = '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $correo_electronico = $_POST['correo_electronico'];
     $password = $_POST['password'];
@@ -13,7 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['usuario_id'] = $usuario['id'];
         echo "Inicio de sesión exitoso.";
     } else {
-        echo "Correo electrónico o contraseña incorrectos.";
+        $error_message = '<div class="card card-custom">
+        <div class="card-body">
+          <p class="card-text text-danger">Correo o contraseña incorrectos</p>
+        </div>
+      </div>';
     }
 }
 ?>
@@ -24,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Iniciar Sesión</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
@@ -56,7 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 </div>
-
+<?php
+                    if ($error_message) {
+                        echo $error_message;
+                    }
+                    ?>
 <!-- Bootstrap JS (Opcional, solo si usas componentes interactivos como modales) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

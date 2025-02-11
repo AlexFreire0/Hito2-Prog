@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo "Usuario registrado con éxito.";
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -14,7 +14,7 @@ class Usuario {
         $stmt->bind_param("sss", $nombreuser, $correo_electronico, $password);
 
         if ($stmt->execute()) {
-            echo "Usuario agregado con éxito.";
+
         } else {
             echo "Error al agregar el usuario: " . $stmt->error;
         }
