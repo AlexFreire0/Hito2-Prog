@@ -93,9 +93,9 @@ class Tarea {
         $stmt->bind_param("i", $id_tarea);
         $stmt->execute();
         $stmt->close();
-
+        echo "$id_tarea";
         // Eliminar de tareas
-        $query = "DELETE FROM tareas WHERE id_tarea = ?";
+        $query = "DELETE FROM tareas WHERE id = ?";
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("i", $id_tarea);
 
