@@ -47,7 +47,7 @@ $tareas = $controller->listarTareasPorUsuario($_SESSION['usuario_id']);
                         <td><?= htmlspecialchars($tarea['descripcion']) ?></td>
                         <td><?= htmlspecialchars($tarea['Estado']) ?></td>
                         <td>
-                            <a href="editar_tarea.php?id=<?= urlencode($tarea['id']) ?>" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="completar_tarea.php?id=<?= urlencode($tarea['id']) ?>" class="btn btn-sm btn-success">Completar</a>
                             <a href="eliminar_tarea.php?id=<?= urlencode($tarea['id']) ?>" class="btn btn-sm btn-danger">Eliminar</a>
                         </td>
                     </tr>

@@ -87,6 +87,14 @@ class Tarea {
     }
 
     public function eliminarTarea($id_tarea) {
+        // Eliminar de Usuarios_Tareas
+        $query = "DELETE FROM Usuarios_Tareas WHERE tarea_id = ?";
+        $stmt = $this->conexion->conexion->prepare($query);
+        $stmt->bind_param("i", $id_tarea);
+        $stmt->execute();
+        $stmt->close();
+
+        // Eliminar de tareas
         $query = "DELETE FROM tareas WHERE id_tarea = ?";
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("i", $id_tarea);
