@@ -2,6 +2,11 @@
 session_start();
 require_once '../Controlador/UsuariosController.php';
 
+if (isset($_SESSION['usuario_id'])) {
+    header('Location: ../Vista/lista_tareas.php');
+    exit();
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombreuser = $_POST['nombreuser'];
     $correo_electronico = $_POST['correo_electronico'];
@@ -11,6 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $controller->agregarUsuario($nombreuser, $correo_electronico, $password);
 
     echo "Usuario registrado con éxito.";
+    header('Location: login.php');
+    exit();
 }
 ?>
 <!DOCTYPE html>

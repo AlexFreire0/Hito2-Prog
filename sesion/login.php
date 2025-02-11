@@ -2,6 +2,11 @@
 session_start();
 require_once '../Controlador/UsuariosController.php';
 
+if (isset($_SESSION['usuario_id'])) {
+    header('Location: ../Vista/lista_tareas.php');
+    exit();
+}
+
 $error_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -13,7 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($usuario && password_verify($password, $usuario['password'])) {
         $_SESSION['usuario_id'] = $usuario['id'];
-        echo "Inicio de sesión exitoso.";
+        $_SESSION['usuario_nombre'] = $usuario['nombreuser'];
+        header('Location: ../Vista/lista_tareas.php');
+        exit();
+        setcookie("user", $user["username"], time() + (86400 * 30), "/");
+        setcookie("user_id", $user["id"], time() + (86400 * 30), "/");
     } else {
         $error_message = '<div class="card card-custom">
         <div class="card-body">

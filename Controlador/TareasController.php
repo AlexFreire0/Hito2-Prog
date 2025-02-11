@@ -8,20 +8,24 @@ class TareasController {
         $this->modelo = new Tarea();
     }
 
-    public function agregarTarea($nombre_tarea, $fecha, $descripcion) {
-        $this->modelo->agregarTarea($nombre_tarea, $fecha, $descripcion);
+    public function agregarTarea($nombre_tarea, $descripcion, $estado, $usuario_id) {
+        $this->modelo->agregarTarea($nombre_tarea, $descripcion, $estado, $usuario_id);
     }
 
     public function listarTareas() {
         return $this->modelo->obtenerTareas();
     }
 
+    public function listarTareasPorUsuario($usuario_id) {
+        return $this->modelo->obtenerTareasPorUsuario($usuario_id);
+    }
+
     public function obtenerTareaPorId($id_tarea) {
         return $this->modelo->obtenerTareaPorId($id_tarea);
     }
 
-    public function actualizarTarea($id_tarea, $nombre_tarea, $fecha, $descripcion) {
-        $this->modelo->actualizarTarea($id_tarea, $nombre_tarea, $fecha, $descripcion);
+    public function actualizarTarea($id_tarea, $nombre_tarea, $descripcion, $estado) {
+        $this->modelo->actualizarTarea($id_tarea, $nombre_tarea, $descripcion, $estado);
     }
 
     public function eliminarTarea($id_tarea) {

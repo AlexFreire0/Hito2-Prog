@@ -1,7 +1,20 @@
 <?php
-require_once '../controlador/EventosController.php';
-$controller = new EventosController();
-$eventos = $controller->listarEventos();
+session_start();
+require_once '../controlador/TareasController.php';
+
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: ../sesion/login.php');
+    exit();
+}
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('Location: ../sesion/login.php');
+    exit();
+}
+
+$controller = new TareasController();
+$tareas = $controller->listarTareasPorUsuario($_SESSION['usuario_id']);
 ?>
 
 <!DOCTYPE html>
@@ -14,34 +27,35 @@ $eventos = $controller->listarEventos();
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4 text-center">Eventos Registrados</h1>
+        <h1 class="mb-4 text-center">Tareas Registradas</h1>
+        <form method="POST" action="lista_tareas.php">
+            <button type="submit" name="logout" class="btn btn-danger mb-3">Cerrar Sesión</button>
+        </form>
         <table class="table table-striped table-bordered">
             <thead class="table-dark">
                 <tr>
                     <th>Nombre tarea</th>
                     <th>Descripcion</th>
                     <th>Estado</th>
-                    <th>Lugar</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($eventos as $evento): ?>
+                <?php foreach ($tareas as $tarea): ?>
                     <tr>
-                        <td><?= htmlspecialchars($evento['id_evento']) ?></td>
-                        <td><?= htmlspecialchars($evento['nombre_evento']) ?></td>
-                        <td><?= htmlspecialchars($evento['fecha']) ?></td>
-                        <td><?= htmlspecialchars($evento['lugar']) ?></td>
+                        <td><?= htmlspecialchars($tarea['nombre']) ?></td>
+                        <td><?= htmlspecialchars($tarea['descripcion']) ?></td>
+                        <td><?= htmlspecialchars($tarea['Estado']) ?></td>
                         <td>
-                            <a href="editar_evento.php?id=<?= urlencode($evento['id_evento']) ?>" class="btn btn-sm btn-warning">Editar</a>
-                            <a href="eliminar_evento.php?id=<?= urlencode($evento['id_evento']) ?>" class="btn btn-sm btn-danger">Eliminar</a>
+                            <a href="editar_tarea.php?id=<?= urlencode($tarea['id']) ?>" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="eliminar_tarea.php?id=<?= urlencode($tarea['id']) ?>" class="btn btn-sm btn-danger">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
         <div class="text-center mt-4">
-            <a href="alta_evento.php" class="btn btn-primary">Agregar un nuevo evento</a>
+            <a href="alta_tarea.php" class="btn btn-primary">Agregar una nueva tarea</a>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
