@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -43,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="../css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-
+<button class="inicio-btn">Inicio</button>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
