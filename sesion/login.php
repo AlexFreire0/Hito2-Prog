@@ -21,8 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['usuario_nombre'] = $usuario['nombreuser'];
         header('Location: ../Vista/lista_tareas.php');
         exit();
-        setcookie("user", $user["username"], time() + (86400 * 30), "/");
-        setcookie("user_id", $user["id"], time() + (86400 * 30), "/");
     } else {
         $error_message = '<div class="card card-custom">
         <div class="card-body">
@@ -42,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="../css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-<button class="inicio-btn">Inicio</button>
+<a class="inicio-btn" href="..">Inicio</a>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -68,13 +66,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
         </div>
+        </div>
+            <?php
+            if ($error_message) {
+                echo $error_message;
+            }
+            ?>
+        </div>
     </div>
 </div>
-<?php
-                    if ($error_message) {
-                        echo $error_message;
-                    }
-                    ?>
 <!-- Bootstrap JS (Opcional, solo si usas componentes interactivos como modales) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

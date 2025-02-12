@@ -2,10 +2,7 @@
 session_start();
 require_once '../Controlador/UsuariosController.php';
 
-if (isset($_SESSION['usuario_id'])) {
-    header('Location: ../Vista/lista_tareas.php');
-    exit();
-}
+$error_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombreuser = $_POST['nombreuser'];
@@ -13,11 +10,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
     $controller = new UsuariosController();
-    $controller->agregarUsuario($nombreuser, $correo_electronico, $password);
+    $existing_user = $controller->obtenerUsuarioPorCorreo($correo_electronico);
 
-    echo "Usuario registrado con éxito.";
-    header('Location: login.php');
-    exit();
+    if ($existing_user) {
+        $error_message = '<div class="card card-custom">
+        <div class="card-body">
+          <p class="card-text text-danger">El correo electronico ya está registrado</p>
+        </div>
+      </div>';
+    } else {
+        $controller->agregarUsuario($nombreuser, $correo_electronico, $password);
+        echo "Usuario registrado con éxito.";
+        header('Location: login.php');
+        exit();
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -27,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
@@ -58,6 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <a href="login.php">Ya tengo cuenta</a>
                 </div>
             </div>
+            <?php
+            if ($error_message) {
+                echo $error_message;
+            }
+            ?>
         </div>
     </div>
 </div>
