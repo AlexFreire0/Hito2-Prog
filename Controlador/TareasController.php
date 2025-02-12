@@ -31,5 +31,11 @@ class TareasController {
     public function eliminarTarea($id_tarea) {
         $this->modelo->eliminarTarea($id_tarea);
     }
+    public function completarTarea($id_tarea) {
+        $this->modelo->completarTarea($id_tarea);
+}
+public function noCompletarTarea($id_tarea) {
+    $this->modelo->noCompletarTarea($id_tarea);
+}
 }
 ?>

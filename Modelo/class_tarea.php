@@ -107,5 +107,29 @@ class Tarea {
 
         $stmt->close();
     }
+    public function completarTarea($tareaId) {
+        $query = "UPDATE tareas SET Estado = 'Completado' WHERE id = ?";
+        $stmt = $this->conexion->conexion->prepare($query);
+        $stmt->bind_param('i', $tareaId);
+        $stmt->execute();
+        if ($stmt->execute()) {
+            echo "Tarea eliminada con éxito.";
+        } else {
+            echo "Error al eliminar la tarea: " . $stmt->error;
+        }
+        $stmt->close();
+    }
+    public function noCompletarTarea($tareaId) {
+        $query = "UPDATE tareas SET Estado = 'Pendiente' WHERE id = ?";
+        $stmt = $this->conexion->conexion->prepare($query);
+        $stmt->bind_param('i', $tareaId);
+        $stmt->execute();
+        if ($stmt->execute()) {
+            echo "Tarea eliminada con éxito.";
+        } else {
+            echo "Error al eliminar la tarea: " . $stmt->error;
+        }
+        $stmt->close();
+    }
 }
 ?>

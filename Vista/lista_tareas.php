@@ -45,13 +45,17 @@ $tareas = $controller->listarTareasPorUsuario($_SESSION['usuario_id']);
                     <tr>
                         <td><?= htmlspecialchars($tarea['nombre']) ?></td>
                         <td><?= htmlspecialchars($tarea['descripcion']) ?></td>
-                        <?php if ($tarea['Estado'] == 'pendiente'): ?>
+                        <?php if ($tarea['Estado'] == 'Pendiente'): ?>
                         <td class="text-danger"><?= htmlspecialchars($tarea['Estado']) ?></td>
                         <?php else: ?>
                         <td class="text-success"><?= htmlspecialchars($tarea['Estado']) ?></td>
                         <?php endif; ?>
                         <td>
+                        <?php if ($tarea['Estado'] == 'Pendiente'): ?>
                             <a href="completar_tarea.php?id=<?= urlencode($tarea['id']) ?>" class="btn btn-sm btn-success">Completar</a>
+                            <?php else: ?>
+                            <a href="nocompletar_tarea.php?id=<?= urlencode($tarea['id']) ?>" class="btn btn-sm btn-warning">No completar</a>
+                            <?php endif; ?>  
                             <a href="eliminar_tarea.php?id=<?= urlencode($tarea['id']) ?>" class="btn btn-sm btn-danger">Eliminar</a>
                         </td>
                     </tr>
