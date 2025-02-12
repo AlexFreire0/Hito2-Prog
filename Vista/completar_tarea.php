@@ -2,6 +2,11 @@
 require_once '../controlador/TareasController.php'; 
 
 $controller = new TareasController();
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: ../sesion/login.php');
+    exit();
+}
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id_tarea = $_GET['id'];

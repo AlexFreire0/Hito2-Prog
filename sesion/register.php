@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="../css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-
+<a class="inicio-btn" href="..">Inicio</a>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
