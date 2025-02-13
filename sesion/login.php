@@ -2,7 +2,7 @@
 session_start();
 require_once '../Controlador/UsuariosController.php';
 
-
+// Verificar si el usuario ya ha iniciado sesión
 if (isset($_SESSION['usuario_id'])) {
     header('Location: ../Vista/lista_tareas.php');
     exit();
@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $controller = new UsuariosController();
     $usuario = $controller->obtenerUsuarioPorCorreo($correo_electronico);
 
+    // Verificar la contraseña y establecer las variables de sesión si es válida
     if ($usuario && password_verify($password, $usuario['password'])) {
         $_SESSION['usuario_id'] = $usuario['id'];
         $_SESSION['usuario_nombre'] = $usuario['nombreuser'];
@@ -39,45 +40,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Iniciar Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .btn-custom {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+        }
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #0056b3, #003f7f);
+            transform: scale(1.1);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
 <a class="inicio-btn" href="..">Inicio</a>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-lg">
-                <div class="card-header text-center bg-primary text-white">
-                    <h2>Iniciar Sesión</h2>
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="login.php">
-                        <div class="mb-3">
-                            <label class="form-label">Correo electrónico:</label>
-                            <input type="email" name="correo_electronico" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Contraseña:</label>
-                            <input type="password" name="password" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-                    </form>
-                </div>
-                <div class="card-footer text-center">
-                    <a href="register.php">No tengo cuenta</a>
-                </div>
-            </div>
+<div class="container">
+    <h2 class="mb-4">Iniciar Sesión</h2>
+    <?php
+    // Mostrar mensaje de error si existe
+    if ($error_message) {
+        echo $error_message;
+    }
+    ?>
+    <form method="POST" action="login.php">
+        <div class="mb-3">
+            <label class="form-label">Correo electrónico:</label>
+            <input type="email" name="correo_electronico" class="form-control" required>
         </div>
+        <div class="mb-3">
+            <label class="form-label">Contraseña:</label>
+            <input type="password" name="password" class="form-control" required>
         </div>
-            <?php
-            if ($error_message) {
-                echo $error_message;
-            }
-            ?>
-        </div>
+        <button type="submit" class="btn btn-custom w-100">Iniciar Sesión</button>
+    </form>
+    <div class="mt-3">
+        <a href="register.php">No tengo cuenta</a>
     </div>
-</div>
-<!-- Bootstrap JS (Opcional, solo si usas componentes interactivos como modales) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

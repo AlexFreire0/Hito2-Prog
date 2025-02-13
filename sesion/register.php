@@ -34,46 +34,70 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .btn-custom {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+        }
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #0056b3, #003f7f);
+            transform: scale(1.1);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
 <a class="inicio-btn" href="..">Inicio</a>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-lg">
-                <div class="card-header text-center bg-primary text-white">
-                    <h2>Registro</h2>
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="register.php">
-                        <div class="mb-3">
-                            <label class="form-label">Nombre de usuario:</label>
-                            <input type="text" name="nombreuser" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Correo electrónico:</label>
-                            <input type="email" name="correo_electronico" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Contraseña:</label>
-                            <input type="password" name="password" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
-                    </form>
-                </div>
-                <div class="card-footer text-center">
-                    <a href="login.php">Ya tengo cuenta</a>
-                </div>
-            </div>
-            <?php
-            if ($error_message) {
-                echo $error_message;
-            }
-            ?>
+<div class="container">
+    <h2 class="mb-4">Registro</h2>
+    <?php
+    // Mostrar mensaje de error si existe
+    if ($error_message) {
+        echo $error_message;
+    }
+    ?>
+    <form method="POST" action="register.php">
+        <div class="mb-3">
+            <label class="form-label">Nombre de usuario:</label>
+            <input type="text" name="nombreuser" class="form-control" required>
         </div>
+        <div class="mb-3">
+            <label class="form-label">Correo electrónico:</label>
+            <input type="email" name="correo_electronico" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Contraseña:</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-custom w-100">Registrarse</button>
+    </form>
+    <div class="mt-3">
+        <a href="login.php">Ya tengo cuenta</a>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
