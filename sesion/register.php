@@ -1,17 +1,25 @@
 <?php
+// Iniciar sesión
 session_start();
+// Incluir el controlador de usuarios
 require_once '../Controlador/UsuariosController.php';
 
+// Inicializar mensaje de error
 $error_message = '';
 
+// Verificar si el método de solicitud es POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Obtener datos del formulario
     $nombreuser = $_POST['nombreuser'];
     $correo_electronico = $_POST['correo_electronico'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
+    // Crear instancia del controlador de usuarios
     $controller = new UsuariosController();
+    // Verificar si el usuario ya existe por correo electrónico
     $existing_user = $controller->obtenerUsuarioPorCorreo($correo_electronico);
 
+    // Si el usuario ya existe, mostrar mensaje de error
     if ($existing_user) {
         $error_message = '<div class="card card-custom">
         <div class="card-body">
@@ -19,8 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
       </div>';
     } else {
+        // Si el usuario no existe, agregar nuevo usuario
         $controller->agregarUsuario($nombreuser, $correo_electronico, $password);
         echo "Usuario registrado con éxito.";
+        // Redirigir a la página de inicio de sesión
         header('Location: login.php');
         exit();
     }
